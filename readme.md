@@ -36,12 +36,22 @@ Or will return as:
 
 #### Model structure
 	- id
-	- name*
-	- address*
+	- name
+	- address
 	- latitude
 	- longitude
 
-**fields marked * are required for any POST/PUT/PATCH**
+#### Available Routes
+| method |          URL          |           action          |                     params                    |
+|:------:|:---------------------:|:-------------------------:|:---------------------------------------------:|
+|  POST  |        cinemas        |   CinemaController@store  |   [ 'name' => string, 'address' => string ]   |
+|   GET  |        cinemas        |   CinemaController@index  |                      none                     |
+| DELETE |   cinemas/{id}   |  CinemaController@destroy |               ['id' => integer]               |
+|   GET  |   cinemas/{id}   |   CinemaController@show   |               ['id' => integer]               |
+|   PUT  |   cinemas/{id}   |  CinemaController@update  |    [ 'name' => string, 'address' => string]   |
+|   GET  | cinemas/{id}/sessions | CinemaController@sessions | ['id' => integer, 'date' => datetime/string] |
+
+**Note:** Date parameter passed into cinemas/{id}/sessions is optional and can be written as a partial string e.g. '?date=2015-08'
 
 #### JSON Structure
 ```json
@@ -54,23 +64,23 @@ Or will return as:
 }
 ```
 
-#### Available Routes
-| method |        URL        |          action          |                   params                  |
-|:------:|:-----------------:|:------------------------:|:-----------------------------------------:|
-|  POST  |      cinemas      |  CinemaController@store  | [ 'name' => string, 'address' => string ] |
-|   GET  |      cinemas      |  CinemaController@index  |                    none                   |
-| DELETE | cinemas/{cinemas} | CinemaController@destroy |                (integer) id               |
-|   GET  | cinemas/{cinemas} |   CinemaController@show  |                    none                   |
-|   PUT  | cinemas/{cinemas} |  CinemaController@update |  [ 'name' => string, 'address' => string] |
-|        |                   |                          |                                           |
-
 ## Movies
 
 #### Model Structure
 	- id
-	- title*
+	- title
 
-**fields marked * are required for any POST/PUT/PATCH**	
+#### Available Routes
+| method |          URL         |           action          |                     params                    |
+|:------:|:--------------------:|:-------------------------:|:---------------------------------------------:|
+|  POST  |        movies        |   MovieController@store  |   [ 'name' => string, 'address' => string ]   |
+|   GET  |        movies        |   MovieController@index  |                      none                     |
+| DELETE |      movies/{id}     |  MovieController@destroy |               ['id' => integer]               |
+|   GET  |      movies/{id}     |   MovieController@show   |               ['id' => integer]               |
+|   PUT  |      movies/{id}     |  MovieController@update  |    [ 'name' => string, 'address' => string]   |
+|   GET  | movies/{id}/sessions | MovieController@sessions | ['id' => integer, 'date*' => datetime/string] |
+
+**Note:** Date parameter passed into movies/{id}/sessions is optional and can be written as a partial string e.g. '?date=2015-08'
 
 #### JSON Structure
 ```json
@@ -84,11 +94,15 @@ Or will return as:
 
 #### Model Structure
 	- id
-	- movie_id*
-	- cinema_id*
+	- movie_id
+	- cinema_id
 	- session_time
 
-**fields marked * are required for any POST/PUT/PATCH**	
+#### Available Routes
+| method |    URL   |            action           |                                    params                                   |
+|:------:|:--------:|:---------------------------:|:---------------------------------------------------------------------------:|
+|  POST  | sessions | SessionTimeController@store | ['movie_id' => integer, 'cinema_id' => integer, 'session_time' => datetime] |
+|   GET  | sessions | SessionTimeController@index |                                     none                                    |
 
 #### JSON Structure
 **Note:** Session times are retrieved with their related movie and cinema data:

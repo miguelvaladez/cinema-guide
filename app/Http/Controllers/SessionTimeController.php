@@ -22,4 +22,20 @@ class SessionTimeController extends Controller
 
         return $sessions;
     }
+
+    /**
+     * Store a newly created resource in storage
+     *
+     * @param  Request $request
+     * @return Response
+     */
+    public function store(Request $request)
+    {
+        $data = $request->all();
+        if (SessionTime::create($data)) {
+            return $this->respond(['type' => 'success', 'message' => 'New Session Time added']);
+        }
+
+        return $this->respond(['type' => 'failure', 'message' => 'Failed to add a new session']);
+    }
 }
