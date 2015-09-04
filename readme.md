@@ -54,6 +54,16 @@ Or will return as:
 }
 ```
 
+#### Available Routes
+| method |        URL        |          action          |                   params                  |
+|:------:|:-----------------:|:------------------------:|:-----------------------------------------:|
+|  POST  |      cinemas      |  CinemaController@store  | [ 'name' => string, 'address' => string ] |
+|   GET  |      cinemas      |  CinemaController@index  |                    none                   |
+| DELETE | cinemas/{cinemas} | CinemaController@destroy |                (integer) id               |
+|   GET  | cinemas/{cinemas} |   CinemaController@show  |                    none                   |
+|   PUT  | cinemas/{cinemas} |  CinemaController@update |  [ 'name' => string, 'address' => string] |
+|        |                   |                          |                                           |
+
 ## Movies
 
 #### Model Structure
