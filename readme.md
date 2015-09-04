@@ -7,7 +7,7 @@ RESTful API built in Laravel 5, allows for mobile and web based services to acce
 - Supports partial date search
 - Includes documentation
 
-**Note:** All routes have a prefix of 'api/v1'
+**Note:** All routes have a prefix of 'api/v1'                                 
 
 ## Data Responses
 Successful data responses are paginated (limited to 5 items per page) and repeat the following structure:
@@ -33,7 +33,17 @@ Or will return as:
 ```
 
 ## Cinemas
-Cinema data is returned as follows:
+
+#### Model structure
+	- id
+	- name*
+	- address*
+	- latitude
+	- longitude
+
+**fields marked * are required for any POST/PUT/PATCH**
+
+#### JSON Structure
 ```json
 {
 	"id": "1",
@@ -45,7 +55,14 @@ Cinema data is returned as follows:
 ```
 
 ## Movies
-Movie data is returned as follows:
+
+#### Model Structure
+	- id
+	- title*
+
+**fields marked * are required for any POST/PUT/PATCH**	
+
+#### JSON Structure
 ```json
 {
 	"id": "1",
@@ -54,7 +71,17 @@ Movie data is returned as follows:
 ```
 
 ## Session Times
-Session times are retrieved with their related movie and cinema data:
+
+#### Model Structure
+	- id
+	- movie_id*
+	- cinema_id*
+	- session_time
+
+**fields marked * are required for any POST/PUT/PATCH**	
+
+#### JSON Structure
+**Note:** Session times are retrieved with their related movie and cinema data:
 ```json
 {
 	"id": "1",

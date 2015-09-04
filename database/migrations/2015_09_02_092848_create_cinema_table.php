@@ -16,8 +16,8 @@ class CreateCinemaTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('address');
-            $table->string('latitude');
-            $table->string('longitude');
+            $table->string('latitude')->nullable();
+            $table->string('longitude')->nullable();
         });
     }
 
