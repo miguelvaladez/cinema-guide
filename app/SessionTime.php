@@ -12,7 +12,7 @@ class SessionTime extends Model
 
     public function movie()
     {
-    	return $this->hasOne('App\Movie');
+    	return $this->belongsTo('App\Movie');
     }
 
     public function cinema()

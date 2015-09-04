@@ -12,6 +12,6 @@ class Movie extends Model
 
     public function sessionTimes()
     {
-    	return $this->hasMany('App\SessionTime');
+    	return $this->hasMany('App\SessionTime', 'movie_id');
     }
 }

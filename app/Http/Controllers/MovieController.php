@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Movie as Movie;
+
 class MovieController extends Controller
 {
     /**
@@ -16,17 +18,7 @@ class MovieController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        //
+        return Movie::paginate(5);
     }
 
     /**
@@ -37,7 +29,12 @@ class MovieController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        if (Movie::create($data)) {
+            return $this->respond(['type' => 'success', 'message' => 'New Movie created']);
+        }
+
+        return $this->respond(['type' => 'failure', 'message' => 'Failed to create new Movie']);
     }
 
     /**
@@ -48,18 +45,7 @@ class MovieController extends Controller
      */
     public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        //
+        return Movie::find($id);
     }
 
     /**
@@ -71,7 +57,14 @@ class MovieController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+        $movie = Movie::find($id);
+
+        if ($movie->update($data)) {
+            return $this->respond(['type' => 'success', 'message' => 'Movie updated']);
+        }
+
+        return $this->respond(['type' => 'failure', 'message' => 'Failed to update movie']);
     }
 
     /**
@@ -82,6 +75,29 @@ class MovieController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if (Movie::destroy($id)) {
+            return $this->respond(['type' => 'success', 'message' => 'Movie deleted']);
+        }
+
+        return $this->respond(['type' => 'failure', 'message' => 'Failed to delete movie']);
+    }
+
+    /**
+     * Get a list of sessions for a given movie
+     *
+     * @param  Request $request
+     * @param  integer $id
+     * @return Response
+     */
+    public function sessions(Request $request, $id)
+    {
+        $date = $request->get('date');
+        $sessions = Movie::find($id)->sessionTimes();
+
+        if ($date) {
+            $sessions->where('session_time', 'like','%'.$date.'%');
+        }
+
+        return $sessions->paginate();
     }
 }

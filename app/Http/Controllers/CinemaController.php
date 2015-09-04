@@ -18,19 +18,8 @@ class CinemaController extends Controller
      */
     public function index()
     {
-        $cinemas = Cinema::all();
-
-        return view('cinemas.index', compact('cinemas'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        //
+        $cinemas = Cinema::paginate(5);
+        return $cinemas;
     }
 
     /**
@@ -41,7 +30,13 @@ class CinemaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        if (Cinema::create($data)) {
+            return $this->respond(['type' => 'success', 'message' => 'New Cinema created']);
+        }
+
+        return $this->respond(['type' => 'failure', 'message' => 'Failed to save new Cinema']);
     }
 
     /**
@@ -52,18 +47,8 @@ class CinemaController extends Controller
      */
     public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        //
+        $cinema = Cinema::find($id);
+        return $cinema;
     }
 
     /**
@@ -75,7 +60,14 @@ class CinemaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $cinema = Cinema::find($id);
+        $data =  $request->all();
+
+        if ($cinema->update($data)) {
+            return $this->respond(['type' => 'success', 'message' => 'Cinema updated']);
+        }
+
+        return $this->respond(['type' => 'failure', 'message' => 'Failed to update cinema']);
     }
 
     /**
@@ -86,6 +78,29 @@ class CinemaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if (Cinema::destroy($id)) {
+            return $this->respond(['type' => 'success', 'message' => 'Cinema destoyed']);
+        }
+
+        return $this->respond(['type' => 'failure', 'message' => 'Failed to destroy Cinema']);
+    }
+
+    /**
+     * Show the session times for a given cinema
+     *
+     * @param  Request $request
+     * @param  integer  $id
+     * @return Response
+     */
+    public function sessions(Request $request, $id)
+    {
+        $date = $request->get('date');
+        $sessions = Cinema::find($id)->sessionTimes();
+
+        if ($date) {
+            $sessions->where('session_time', 'like','%'.$date.'%');
+        }
+
+        return $sessions->paginate();
     }
 }

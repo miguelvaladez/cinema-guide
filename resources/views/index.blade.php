@@ -8,8 +8,8 @@
     </head>
     <body>
 
-        <div class="content-container">
-            @yield('content')
+        <div class="container">
+        	@yield('content')
         </div>
 
     </body>
