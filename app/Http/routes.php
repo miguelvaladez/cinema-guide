@@ -23,5 +23,6 @@ Route::group(['prefix' => 'api/v1'], function() {
 	Route::resource('sessions', 'SessionTimeController', ['only' =>  ['index', 'store']]);
 	Route::get('movies/{id}/sessions', ['as' => 'api.v1.movies.sessions', 'uses' => 'MovieController@sessions']);
 	Route::get('cinemas/{id}/sessions', ['as' => 'api.v1.cinemas.sessions', 'uses' => 'CinemaController@sessions']);
+	Route::get('sessions/search', ['as' => 'api.v1.sessions.search', 'uses' => 'SessionTimeController@search']);
 
 });

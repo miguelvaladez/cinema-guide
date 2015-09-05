@@ -10742,7 +10742,9 @@ new Vue({
 		cinemas: [],
 		prev_page_url: undefined,
 		next_page_url: undefined,
-		selectedCinema: undefined
+		selectedCinema: undefined,
+		searchTerm: '',
+		searchResults: []
 	},
 
 	ready: function ready() {
@@ -10774,6 +10776,22 @@ new Vue({
 		},
 		unsetCinema: function unsetCinema() {
 			this.selectedCinema = undefined;
+		},
+		search: function search(e) {
+			e.preventDefault();
+
+			this.$http.get('api/v1/sessions/search?search=' + this.searchTerm, function (response) {
+				if (response.data) {
+					this.searchResults = response.data;
+				} else {
+					// no match found
+					alert(response.message);
+				}
+			});
+		},
+		clearSearch: function clearSearch() {
+			this.searchTerm = '';
+			this.searchResults = [];
 		}
 	}
 });

@@ -7,6 +7,8 @@ RESTful API built in Laravel 5, allows for mobile and web based services to acce
 - Supports partial date search
 - Includes documentation
 
+A very basic frontend has been setup using Vue.js to show data retrieval using the API and can retrieve session times searching by Cinema name, Movie title, or session time (including partial date).
+
 **Note:** All routes have a prefix of 'api/v1'                                 
 
 ## Data Responses
@@ -103,6 +105,7 @@ Or will return as:
 |:------:|:--------:|:---------------------------:|:---------------------------------------------------------------------------:|
 |  POST  | sessions | SessionTimeController@store | ['movie_id' => integer, 'cinema_id' => integer, 'session_time' => datetime] |
 |   GET  | sessions | SessionTimeController@index |                                     none                                    |
+|   GET  | sessions/search | SessionTimeController@search | ['search' => string] |
 
 #### JSON Structure
 **Note:** Session times are retrieved with their related movie and cinema data:
