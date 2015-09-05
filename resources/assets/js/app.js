@@ -36,7 +36,6 @@ new Vue({
 			// then get the session times object for the cinema (movie obj is auto-retrieved)
 			this.$http.get('api/v1/cinemas/' + cinema.id + '/sessions', function(response) {
 				this.$set('sessions', response.data);
-				console.log(this.selectedCinema);
 			});
 		},
 		unsetCinema: function() {
