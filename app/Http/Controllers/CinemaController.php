@@ -95,7 +95,7 @@ class CinemaController extends Controller
     public function sessions(Request $request, $id)
     {
         $date = $request->get('date');
-        $sessions = Cinema::find($id)->sessionTimes();
+        $sessions = Cinema::find($id)->sessionTimes()->with('movie');
 
         if ($date) {
             $sessions->where('session_time', 'like','%'.$date.'%');
